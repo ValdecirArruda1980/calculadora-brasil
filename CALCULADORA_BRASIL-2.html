@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+<meta charset="UTF-8">
+    <style>
+    .buttonx {
+    width:  30px;
+    height:  25px;
+    background-color: gray;
+    }
+    .buttony {
+    width:  60px;
+    height:  25px;
+    background-color: orange;
+    }
+    .buttono {
+    width:  30px;
+    height:  25px;
+    background-color: orange;
+    }
+    .buttona {
+    width:  30px;
+    height:  25px;
+    background-color: lightgray;
+    }
+    #texto {
+    background-color: gray;
+    font-weight: bold;
+    border: 3;
+    color: black;
+    }
+    </style>
+    </head>
+         <body> 
+         <table align="center" border="2">
+         <tr>
+         <!-- Exibe o  display de resultados e digitação -->
+         <td colspan="4" align="right"><p id="texto" >0</p></td>
+         </tr>
+         <tr>
+         <!-- Primeira linha de botões: 7 8 9 /    -->
+         <td><button class="buttonx" type="button" id="b7" onclick="myclick(7)"><b>7</b></button></td>
+         <td><button class="buttonx" type="button" id="b8" onclick="myclick(8)"><b>8</b></button></td>
+         <td><button class="buttonx" type="button" id="b9" onclick="myclick(9)"><b>9</b></button></td>
+         <td><button class="buttono" type="button" id="bb" onclick="dividir()"><b>/</b></button></td>
+         </tr>
+         <tr>
+         <!-- Segunda linha de botões: 4 5 6 x    -->
+         <td><button class="buttonx" type="button" id="b4" onclick="myclick(4)"><b>4</b></button></td>
+         <td><button class="buttonx" type="button" id="b5" onclick="myclick(5)"><b>5</b></button></td>
+         <td><button class="buttonx" type="button" id="b6" onclick="myclick(6)"><b>6</b></button></td>
+         <td><button class="buttono" type="button" id="bx" onclick="multip()"><b>X</b></button></td>
+         </tr>
+         <tr>
+         <!-- Terceira linha de botões: 1 2 3 +    -->
+         <td><button class="buttonx" type="button" id="b1" onclick="myclick(1)"><b>1</b></button></td>
+         <td><button class="buttonx" type="button" id="b2" onclick="myclick(2)"><b>2</b></button></td>
+         <td><button class="buttonx" type="button" id="b3" onclick="myclick(3)"><b>3</b></button></td>
+         <td><button class="buttono" type="button" id="bb" onclick="somar()"><b>+</b></button></td>
+         </tr>
+         <tr>
+         <!-- Quarta linha de botões:  c  0 . -    -->
+         <td><button class="buttonx" type="button" id="bc" onclick="mylimpa()"><b>C</b></button></td>
+         <td><button class="buttonx" type="button" id="bo" onclick="myclick(0)"><b>0</b></button></td>
+         <td><button class="buttonx" type="button" id="bp" onclick="mydecimal()"><b>.</b></button></td>
+         <td><button class="buttono" type="button" id="be" onclick="subtrai()"><b>-</b></button></td>
+         </tr>
+         <!-- Quinta linha de botões:  =  -->
+         <td><button class="buttona" type="button" id="bms" onclick=" mudasinal()"><b>+/-</b></button></td>
+         <td colspan="2" align="center">
+         <button class="buttony" type="button" id="bi" onclick="igual()"><b>=</b></button>
+         <td><button class="buttona" type="button" id="bbs" onclick=" backspace()"><b><=</b></button></td>
+         </table>
+         <script>
+         var ponto= 0;     // 0 <texto> sem ponto ,  1 <texto> com ponto
+         var num1= 0;      // primeiro operador
+         var num2= 0;      // segundo operador
+         var operacao = 0; // 1=soma, 2=subtracao, 3=multiplicacao, 4=divisao
+            function myclick ( tecla) {
+        if ( tecla != "0") {
+          if (document.getElementById('texto').innerHTML =="0") {
+            document.getElementById('texto').innerHTML = tecla;
+            } 
+            else {
+            document.getElementById('texto').innerHTML = 
+            document.getElementById('texto').innerHTML + tecla;
+            }
+        }
+            else {
+        if(document.getElementById('texto').innerHTML !="0") {
+            document.getElementById('texto').innerHTML =
+            document.getElementById('texto').innerHTML + tecla;
+            }
+        }
+    }
+            function somar() {
+            operacao=1;    // soma
+            num1  = parseFloat(document.getElementById('texto').innerHTML) ;
+            ponto = 0 ;
+            document.getElementById('texto') .innerHTML = "0" ;
+    }
+            function subtrai () {
+            operacao=2;    // subtracao
+            num1  = parseFloat(document.getElementById('texto').innerHTML) ;
+            ponto = 0 ;
+            document.getElementById('texto') .innerHTML = "0" ; 
+    }
+            function multip () {
+            operacao=3;    // multiplicacao
+            num1  = parseFloat(document.getElementById('texto').innerHTML) ;
+            ponto = 0 ;
+            document.getElementById('texto') .innerHTML = "0" ;  
+    }
+            function dividir () {
+            operacao=4;    // divisao
+            num1  = parseFloat(document.getElementById('texto').innerHTML) ;
+            ponto = 0 ;
+            document.getElementById('texto').innerHTML = "0" ; 
+    }
+            function mydecimal() {
+            var tempo = document.getElementById('texto').innerHTML;
+        if(tempo.lastIndexOf(".") > 0){
+            ponto=1;
+        }
+        if( ponto==0 ) {
+            document.getElementById('texto').innerHTML = 
+            document.getElementById('texto').innerHTML + "."; 
+            ponto=1;
+        }
+    }
+            function mylimpa() {
+            document.getElementById('texto').innerHTML = "0";
+            ponto=0;
+            num1=0;
+            num2=0;
+    }
+            function mudasinal() {
+            var tempo = parseFloat(document.getElementById('texto').innerHTML);
+            tempo = tempo * (-1);
+            document.getElementById('texto').innerHTML = tempo;
+    }
+            function  backspace() {
+        if(document.getElementById('texto').innerHTML !="0") {
+            var tempo = document.getElementById('texto').innerHTML;
+            alert(tempo.length);
+        if(tempo.length > 1) {
+            document.getElementById('texto').innerHTML =tempo.substring(0,tempo.length-1);
+            }
+            else{
+            document.getElementById('texto').innerHTML = '0'; 
+            }
+            tempo = document.getElementById('texto').innerHTML;
+        }
+        if(tempo.substring(tempo.length-1,tempo.length)==".") {
+            document.getElementById('texto').innerHTML = tempo.slice(0, -1);
+            ponto=0;
+        }
+        if(document.getElementById('texto').innerHTML == "-") {
+            document.getElementById('texto').innerHTML = tempo.slice(0, -1);
+            ponto=0;
+        }
+    }
+            function igual () {
+            num2 =parseFloat(document.getElementById('texto').innerHTML)
+        if( operacao == 1 ) {
+            var resultado=num1+num2;
+            document.getElementById('texto').innerHTML = resultado ;
+            ponto = 0 ;
+            num1=0 ;
+            num2=0 ;
+        }
+        if( operacao ==2 ) {
+            var resultado=num1-num2;
+            document.getElementById('texto') .innerHTML  = resultado ; 
+            ponto=0 ;
+            num1=0 ;
+            num2=0 ;
+        }
+        if( operacao  == 3 ) {
+            var resultado=num1*num2;
+            document.getElementById('texto').innerHTML = resultado;
+            ponto=0;
+            num1=0;
+            num2=0;
+        }
+        if( operacao  == 4 ) {
+        if(num2 != 0) {
+            var resultado=num1/num2;
+            document.getElementById('texto').innerHTML = resultado;
+            }
+            else {
+            alert("Impossivel. Div por Zero!");
+            document.getElementById('texto').innerHTML = "0";
+            }
+            ponto=0;
+            num1=0;
+            num2=0;
+        }
+        speak ();
+    }
+	function speak() {
+   	const frase = new SpeechSynthesisUtterance(document.getElementById('texto').innerHTML);
+    	const voices = speechSynthesis.getVoices();
+    
+    	// Encontre a voz em português (Brasil ou Portugal)
+    	let vozPortugues = voices.find(voice => voice.lang === 'pt-BR' || voice.lang === 'pt-PT');
+    
+    	// Se encontrar a voz em português, use-a
+   	 if (vozPortugues) {
+        frase.voice = vozPortugues;
+    	} else {
+        // Caso não encontre, usa uma voz padrão
+        frase.voice = voices[0]; 
+    }
+
+    speechSynthesis.speak(frase);
+}
+        
+         // Fecha o início da função igual()
+        </script> 
+    </body>
+</html>
